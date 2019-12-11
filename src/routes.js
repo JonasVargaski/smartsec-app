@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from '~/pages/SignIn';
 
+import Monitoring from '~/pages/Monitoring';
+
 export default (signedIn = false) =>
   createAppContainer(
     createSwitchNavigator(
@@ -18,7 +20,9 @@ export default (signedIn = false) =>
             {
               HelpOrders: {
                 screen: createStackNavigator(
-                  {},
+                  {
+                    Monitoring,
+                  },
                   {
                     defaultNavigationOptions: {
                       headerTransparent: true,
