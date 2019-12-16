@@ -5,7 +5,7 @@ import createRouter from '~/routes';
 
 import NavigationService from '~/services/navigation';
 
-export default function src() {
+export default function App() {
   const signed = useSelector(state => state.auth.signed);
   const Routes = createRouter(signed);
 
