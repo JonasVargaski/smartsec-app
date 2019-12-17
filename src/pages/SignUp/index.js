@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
+import { Keyboard } from 'react-native';
 import Background from '~/components/Background';
+
 import {
   Container,
   ImageLogo,
@@ -13,10 +15,13 @@ import {
 
 import logo from '~/assets/logo.png';
 
-export default function SignIn({ navigation }) {
+export default function SignUp({ navigation }) {
+  const emailRef = useRef();
   const passwordRef = useRef();
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    Keyboard.dismiss();
+  }
 
   return (
     <Background>
@@ -24,11 +29,20 @@ export default function SignIn({ navigation }) {
         <ImageLogo source={logo} />
         <Form>
           <Input
+            icon="person-outline"
+            autoCorrect={false}
+            placeholder="Nome Completo"
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current.focus()}
+          />
+
+          <Input
             icon="mail-outline"
+            keyboardType="email-adress"
+            placeholder="Digite seu E-mail"
             autoCorrect={false}
             autoCapitalize="none"
-            keyboardType="email-address"
-            placeholder="Digite seu E-mail"
+            ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
           />
@@ -45,16 +59,16 @@ export default function SignIn({ navigation }) {
           />
 
           <SubmitButton onPress={handleSubmit}>
-            <TextButton>Acessar</TextButton>
+            <TextButton>Cadastrar</TextButton>
           </SubmitButton>
         </Form>
 
         <SignLink
           onPress={() => {
-            navigation.navigate('SignUp');
+            navigation.navigate('SignIn');
           }}
         >
-          <SignLinkText>Criar Conta</SignLinkText>
+          <SignLinkText>Já tenho Conta</SignLinkText>
         </SignLink>
       </Container>
     </Background>

@@ -7,15 +7,20 @@ import api from '~/services/api';
 
 export function* signIn({ payload }) {
   try {
-    const { data } = payload;
+    const { email, password } = payload;
 
-    const response = yield call(api.post, 'sessions', data);
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
 
-    const student = response.data;
+    const { token, user } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(signInSuccess(token, user));
 
     NavigationService.navigate('App');
-
-    yield put(signInSuccess(student));
   } catch (err) {
     Alert.alert('Falha na autenticação', err.response.data.error);
 

@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from '~/pages/SignIn';
+import SignUp from '~/pages/SignUp';
 
 import Monitoring from '~/pages/Monitoring';
 
@@ -15,6 +16,7 @@ export default (signedIn = false) =>
     createSwitchNavigator(
       {
         SignIn,
+        SignUp,
         App: {
           screen: createBottomTabNavigator(
             {

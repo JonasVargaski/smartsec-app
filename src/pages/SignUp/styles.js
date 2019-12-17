@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
-
 import TInput from '~/components/Input';
 import Button from '~/components/Button';
 
