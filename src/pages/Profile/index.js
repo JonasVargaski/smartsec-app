@@ -3,13 +3,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container } from './styles';
 
-export default function Monitoring() {
+export default function Profile() {
   return <Container />;
 }
 
-Monitoring.navigationOptions = {
-  tabBarLabel: 'Monitoramento',
+Profile.navigationOptions = {
+  tabBarLabel: 'Meu Perfil',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="event" size={20} color={tintColor} />
+    <Icon name="person" size={20} color={tintColor} />
   ),
 };

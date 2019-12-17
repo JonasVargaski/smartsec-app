@@ -1,62 +1,37 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createStackNavigator } from 'react-navigation-stack';
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 
 import Monitoring from '~/pages/Monitoring';
+import Profile from '~/pages/Profile';
 
 export default (signedIn = false) =>
   createAppContainer(
     createSwitchNavigator(
       {
-        SignIn,
-        SignUp,
-        App: {
-          screen: createBottomTabNavigator(
-            {
-              HelpOrders: {
-                screen: createStackNavigator(
-                  {
-                    Monitoring,
-                  },
-                  {
-                    defaultNavigationOptions: {
-                      headerTransparent: true,
-                      headerTintColor: '#FFF',
-                      headerLeftContainerStyle: {
-                        marginLeft: 20,
-                      },
-                    },
-                  }
-                ),
-                navigationOptions: {
-                  tabBarLabel: 'Pedir ajuda',
-                  tabBarIcon: ({ tintColor }) => (
-                    <Icon
-                      name="add-circle-outline"
-                      size={20}
-                      color={tintColor}
-                    />
-                  ),
-                },
+        Sign: createSwitchNavigator({
+          SignIn,
+          SignUp,
+        }),
+        App: createBottomTabNavigator(
+          {
+            Monitoring,
+            Profile,
+          },
+          {
+            tabBarOptions: {
+              keyboardHidesTabBar: true, // teclado sobrepoe tabBar
+              activeTintColor: '#fff',
+              inactiveTintColor: 'rgba(255,255,255,0.6)',
+              style: {
+                backgroundColor: '#8d41a8',
               },
             },
-            {
-              resetOnBlur: true,
-              tabBarOptions: {
-                keyboardHidesTabBar: true,
-                activeTintColor: '#EE4E62',
-                inactiveTintColor: '#999999',
-              },
-            }
-          ),
-        },
+          }
+        ),
       },
       {
         initialRouteName: signedIn ? 'App' : 'SignIn',
