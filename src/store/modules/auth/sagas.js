@@ -3,6 +3,7 @@ import Toast from 'react-native-root-toast';
 
 import { signInSuccess, signFailure, signUpSuccess } from './actions';
 import api from '~/services/api';
+import NavigationService from '~/services/navigation';
 
 export function* signIn({ payload }) {
   try {
@@ -36,6 +37,8 @@ export function* signUp({ payload }) {
     });
 
     yield put(signUpSuccess());
+    NavigationService.navigate('SignIn');
+
   } catch (err) {
     Toast.show('Falha no cadastro, verifique seus dados', {
       position: Toast.positions.TOP,
