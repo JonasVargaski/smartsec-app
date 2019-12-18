@@ -37,6 +37,10 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case 'persist/REHYDRATE': {
+        draft.loading = false;
+        break;
+      }
       default:
     }
   });

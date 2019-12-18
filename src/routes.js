@@ -34,7 +34,7 @@ export default (signedIn = false) =>
         ),
       },
       {
-        initialRouteName: signedIn ? 'App' : 'SignIn',
+        initialRouteName: signedIn ? 'App' : 'Sign',
       }
     )
   );

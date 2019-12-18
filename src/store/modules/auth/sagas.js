@@ -1,8 +1,7 @@
-import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import NavigationService from '~/services/navigation';
+import Toast from 'react-native-root-toast';
 
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signUpSuccess } from './actions';
 import api from '~/services/api';
 
 export function* signIn({ payload }) {
@@ -19,12 +18,44 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
-
-    NavigationService.navigate('App');
   } catch (err) {
-    Alert.alert('Falha na autenticação', err.response.data.error);
-
+    Toast.show('Falha na autenticação, Verifique seus dados', {
+      position: Toast.positions.TOP,
+    });
     yield put(signFailure());
   }
 }
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password,
+    });
+
+    yield put(signUpSuccess());
+  } catch (err) {
+    Toast.show('Falha no cadastro, verifique seus dados', {
+      position: Toast.positions.TOP,
+    });
+    yield put(signFailure());
+  }
+}
+
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);

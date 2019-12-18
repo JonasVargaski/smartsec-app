@@ -29,7 +29,7 @@ module.exports = {
       'react/jsx-props-no-spreading': 0,
       'no-param-reassign': 'off',
       'no-use-before-define': 'off',
-
+      'import/no-cycle': 'off',
       'react/state-in-constructor': 'off',
       'react/static-property-placement': 'off',
     },
