@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     id: null,
     name: '',
     email: '',
-    avatar: {},
+    avatar: null,
   },
 };
 
@@ -16,7 +16,7 @@ export default function profile(state = INITIAL_STATE, action) {
         draft.profile = action.payload.user;
         break;
       }
-      case '@profile/UPDATE_PROFILE_SUCCESS': {
+      case '@user/UPDATE_PROFILE_SUCCESS': {
         draft.profile = action.payload.profile;
         break;
       }
@@ -25,7 +25,7 @@ export default function profile(state = INITIAL_STATE, action) {
           id: null,
           name: '',
           email: '',
-          avatar: {},
+          avatar: null,
         };
         break;
       }
