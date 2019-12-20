@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Keyboard } from 'react-native';
+import isValid, { Yup } from '~/util/validate';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
@@ -22,12 +24,23 @@ export default function SignIn({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();
 
+  const schema = Yup.object().shape({
+    email: Yup.string()
+      .email('Insira um e-mail válido')
+      .required('O e-mail é obrigatório'),
+    password: Yup.string().required('A senha é obrigatória'),
+  });
+
   const loading = useSelector(state => state.auth.loading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function handleSubmit() {
-    dispatch(signInRequest(email, password));
+    if (isValid(schema, { email, password })) {
+      dispatch(signInRequest(email, password));
+
+      Keyboard.dismiss();
+    }
   }
 
   return (

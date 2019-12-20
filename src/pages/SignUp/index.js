@@ -2,10 +2,11 @@ import React, { useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { signUpRequest } from '~/store/modules/auth/actions';
+import isValid, { Yup } from '~/util/validate';
 
 import Background from '~/components/Background';
-
 import {
   Container,
   ImageLogo,
@@ -29,9 +30,19 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const schema = Yup.object().shape({
+    name: Yup.string().required('O nome é obrigatório'),
+    email: Yup.string()
+      .email('Insira um e-mail válido')
+      .required('O e-mail é obrigatório'),
+    password: Yup.string().min(3, 'A senha deve conter no mínimo 3 caracteres'),
+  });
+
   function handleSubmit() {
-    dispatch(signUpRequest(name, email, password));
-    Keyboard.dismiss();
+    if (isValid(schema, { name, email, password })) {
+      dispatch(signUpRequest(name, email, password));
+      Keyboard.dismiss();
+    }
   }
 
   return (

@@ -18,8 +18,8 @@ export const Avatar = styled.Image``;
 
 export const Separator = styled.View`
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 20px 0 30px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 10px 0 22px;
 `;
 
 export const Form = styled.ScrollView.attrs({

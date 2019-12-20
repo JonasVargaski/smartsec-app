@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import isValid, { Yup } from '~/util/validate';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
@@ -19,13 +20,29 @@ export default function Profile() {
   const dispatch = useDispatch();
   const { profile, loading } = useSelector(state => state.user);
 
-  const emailRef = useRef();
+  const schema = Yup.object().shape({
+    name: Yup.string()
+      .trim()
+      .required('O nome é obrigatório'),
+    oldPassword: Yup.string(),
+    password: Yup.string().when('oldPassword', (oldPassword, field) =>
+      oldPassword ? field.trim().required('A nova senha é obrigatória') : field
+    ),
+    confirmPassword: Yup.string().when('password', (password, field) =>
+      password
+        ? field
+            .required()
+            .oneOf([Yup.ref('password')], 'As senhas precisam ser iguais')
+        : field
+    ),
+  });
+
   const passwordRef = useRef();
   const oldPasswordRef = useRef();
   const confimPasswordRef = useRef();
 
   const [name, setName] = useState(profile.name);
-  const [email, setEmail] = useState(profile.email);
+  const [email] = useState(profile.email);
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,15 +54,17 @@ export default function Profile() {
   }, [profile]);
 
   function handleSubmit() {
-    dispatch(
-      updateProfileRequest({
-        name,
-        email,
-        oldPassword,
-        password,
-        confirmPassword,
-      })
-    );
+    if (isValid(schema, { name, oldPassword, password, confirmPassword })) {
+      dispatch(
+        updateProfileRequest({
+          name,
+          email,
+          oldPassword,
+          password,
+          confirmPassword,
+        })
+      );
+    }
   }
 
   return (
@@ -59,8 +78,6 @@ export default function Profile() {
             icon="person-outline"
             autoCorrect={false}
             placeholder="Nome Completo"
-            returnKeyType="next"
-            onSubmitEditing={() => emailRef.current.focus()}
             value={name}
             onChangeText={setName}
           />
@@ -69,13 +86,10 @@ export default function Profile() {
             icon="mail-outline"
             keyboardType="email-adress"
             placeholder="Digite seu E-mail"
+            disabled
             autoCorrect={false}
             autoCapitalize="none"
-            ref={emailRef}
-            returnKeyType="next"
-            onSubmitEditing={() => oldPasswordRef.current.focus()}
             value={email}
-            onChangeText={setEmail}
           />
 
           <Separator />
