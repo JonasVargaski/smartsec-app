@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   padding: 0 15px;
@@ -7,6 +7,12 @@ export const Container = styled.View`
   border-radius: 4px;
   flex-direction: row;
   align-items: center;
+  ${props =>
+    props.disabled &&
+    css`
+      background-color: #eaeaea;
+      border: 1px solid #ccc;
+    `}
 `;
 
 export const TInput = styled.TextInput.attrs({

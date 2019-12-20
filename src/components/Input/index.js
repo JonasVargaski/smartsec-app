@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 import { Container, TInput } from './styles';
 
-function Input({ style, icon, ...rest }, ref) {
+function Input({ style, icon, disabled, ...rest }, ref) {
   return (
-    <Container style={style}>
+    <Container disabled={disabled} style={style}>
       {icon && <Icon name={icon} size={20} color="rgba(0, 0, 0, 0.32)" />}
-      <TInput {...rest} ref={ref} />
+      <TInput editable={!disabled} {...rest} ref={ref} />
     </Container>
   );
 }
@@ -16,11 +16,13 @@ function Input({ style, icon, ...rest }, ref) {
 Input.propTypes = {
   icon: PropTypes.string,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  disabled: PropTypes.bool,
 };
 
 Input.defaultProps = {
   icon: null,
   style: {},
+  disabled: false,
 };
 
 export default forwardRef(Input);

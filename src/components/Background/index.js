@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default styled(LinearGradient).attrs({
-  colors: ['#dfdfdf', '#bbb'],
+  colors: ['#333', '#ccc'],
 })`
   flex: 1;
 `;
