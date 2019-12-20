@@ -61,13 +61,8 @@ export function* signUp({ payload }) {
 }
 
 export function setToken({ payload }) {
-  if (!payload) return;
-
-  const { token } = payload.auth;
-
-  if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-  }
+  if (!payload?.auth?.token) return;
+  api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
 }
 
 export default all([
