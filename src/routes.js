@@ -7,6 +7,7 @@ import SignUp from '~/pages/SignUp';
 
 import Monitoring from '~/pages/Monitoring';
 import Profile from '~/pages/Profile';
+import Devices from '~/pages/Devices';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -20,6 +21,7 @@ export default (signedIn = false) =>
           {
             Monitoring,
             Profile,
+            Devices,
           },
           {
             tabBarOptions: {
