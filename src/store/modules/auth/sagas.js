@@ -1,4 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 import { signInSuccess, signFailure, signUpSuccess } from './actions';
@@ -20,9 +21,16 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
   } catch (err) {
-    Toast.show('Falha na autenticação, Verifique seus dados', {
-      position: Toast.positions.TOP,
-    });
+    if (err.data.code === 'AUTH001') {
+      Alert.alert(
+        'Confirmação de e-mail, quase lá...',
+        'Por favor, acesse sua Caixa de Entrada e confirme sua conta.'
+      );
+    } else {
+      Toast.show('Falha na autenticação, Verifique seus dados', {
+        position: Toast.positions.TOP,
+      });
+    }
     yield put(signFailure());
   }
 }
@@ -37,8 +45,13 @@ export function* signUp({ payload }) {
     });
 
     yield put(signUpSuccess());
-    NavigationService.navigate('SignIn');
 
+    Alert.alert(
+      'Conta criada com sucesso!',
+      'Acesse sua Caixa de Entrada para confimar sua e-mail.'
+    );
+
+    NavigationService.navigate('SignIn');
   } catch (err) {
     Toast.show('Falha no cadastro, verifique seus dados', {
       position: Toast.positions.TOP,
