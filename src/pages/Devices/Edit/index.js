@@ -5,7 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '~/components/Background';
 import { Container } from './styles';
 
-export default function Edit() {
+export default function Edit({ navigation }) {
+  const device = navigation.getParam('device');
+
   return (
     <Background>
       <Container />

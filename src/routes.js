@@ -56,6 +56,7 @@ export default (signedIn = false) =>
             },
           },
           {
+            resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true, // teclado sobrepoe tabBar
               activeTintColor: '#fff',
