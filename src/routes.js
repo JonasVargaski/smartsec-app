@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import {
-  createAppContainer,
-  createSwitchNavigator,
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -47,10 +45,10 @@ export default (signedIn = false) =>
                 }
               ),
               navigationOptions: {
-                tabBarVisible: false, // esconde barra de navegação quando acessar esta rota
+                // tabBarVisible: false, // esconde barra de navegação quando acessar esta rota
                 tabBarLabel: 'Controladores',
                 tabBarIcon: (
-                  <Icon name="memory" size={20} color="rgba(255,255,255,0.6)" />
+                  <Icon name="memory" size={22} color="rgba(255,255,255,0.4)" />
                 ),
               },
             },
@@ -60,7 +58,7 @@ export default (signedIn = false) =>
             tabBarOptions: {
               keyboardHidesTabBar: true, // teclado sobrepoe tabBar
               activeTintColor: '#fff',
-              inactiveTintColor: 'rgba(255,255,255,0.6)',
+              inactiveTintColor: 'rgba(255,255,255,0.4)',
               style: {
                 backgroundColor: '#666',
               },
