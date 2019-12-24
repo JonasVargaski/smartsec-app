@@ -11,7 +11,7 @@ export const Title = styled.Text`
   color: #fff;
   font-weight: bold;
   align-self: center;
-  margin-top: 30px;
+  margin-top: 14px;
 `;
 
 export const Avatar = styled.Image``;
@@ -24,7 +24,7 @@ export const Separator = styled.View`
 
 export const Form = styled.ScrollView.attrs({
   showVerticalScrollIndicator: false,
-  contentContainerStyle: { padding: 30 },
+  contentContainerStyle: { padding: 25 },
 })`
   align-self: stretch;
 `;
@@ -38,6 +38,6 @@ export const SubmitButton = styled(Button)`
 `;
 
 export const LogoutButton = styled(Button)`
-  margin-top: 17px;
-  background: #f64c75;
+  margin-top: 10px;
+  background: #333;
 `;

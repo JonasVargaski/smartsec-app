@@ -4,7 +4,11 @@ import Toast from 'react-native-root-toast';
 
 import api from '~/services/api';
 
-import { updateProfileSuccess, updateProfileFailure } from './actions';
+import {
+  updateProfileSuccess,
+  updateProfileFailure,
+  updateAvatarSuccess,
+} from './actions';
 
 export function* updateProfile({ payload }) {
   try {
@@ -28,4 +32,31 @@ export function* updateProfile({ payload }) {
   }
 }
 
-export default all([takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile)]);
+export function* updateAvatar({ payload }) {
+  try {
+    const { name, uri } = payload;
+    // eslint-disable-next-line no-undef
+    const data = new FormData();
+
+    data.append('file', {
+      type: 'image/jpeg',
+      name,
+      uri,
+    });
+
+    const response = yield call(api.post, 'files', data);
+
+    const { id, url } = response.data;
+
+    yield put(updateAvatarSuccess(id, url));
+  } catch (err) {
+    Toast.show('Erro ao carregar imagem, tente novamente!', {
+      position: Toast.positions.TOP,
+    });
+  }
+}
+
+export default all([
+  takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile),
+  takeLatest('@user/UPDATE_AVATAR_REQUEST', updateAvatar),
+]);

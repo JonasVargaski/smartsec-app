@@ -20,6 +20,13 @@ export default function profile(state = INITIAL_STATE, action) {
         draft.profile = action.payload.profile;
         break;
       }
+      case '@user/UPDATE_AVATAR_SUCCESS': {
+        draft.profile.avatar = {
+          id: action.payload.id,
+          url: action.payload.url,
+        };
+        break;
+      }
       case '@auth/SIGN_OUT': {
         draft.profile = INITIAL_STATE;
         break;

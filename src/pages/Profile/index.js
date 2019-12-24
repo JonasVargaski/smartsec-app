@@ -3,14 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import isValid, { Yup } from '~/util/validate';
 
-import { updateProfileRequest } from '~/store/modules/user/actions';
+import {
+  updateProfileRequest,
+  updateAvatarRequest,
+} from '~/store/modules/user/actions';
 import { signOut } from '~/store/modules/auth/actions';
 
 import Background from '~/components/Background';
+import Avatar from './Avatar';
 import {
   Container,
   Title,
-  Avatar,
   Form,
   Input,
   Separator,
@@ -61,12 +64,17 @@ export default function Profile() {
         updateProfileRequest({
           name,
           email,
+          avatar_id: profile.avatar.id,
           oldPassword,
           password,
           confirmPassword,
         })
       );
     }
+  }
+
+  function handleAvatar(data) {
+    dispatch(updateAvatarRequest(data));
   }
 
   function handleLogout() {
@@ -77,9 +85,10 @@ export default function Profile() {
     <Background>
       <Container>
         <Title>Meu perfil</Title>
-        <Avatar source={profile.avatar?.url} />
 
         <Form>
+          <Avatar avatar={profile.avatar} onChange={handleAvatar} />
+
           <Input
             icon="person-outline"
             autoCorrect={false}
@@ -90,7 +99,7 @@ export default function Profile() {
 
           <Input
             icon="mail-outline"
-            keyboardType="email-adress"
+            keyboardType="email-address"
             placeholder="Digite seu E-mail"
             disabled
             autoCorrect={false}
@@ -142,7 +151,7 @@ export default function Profile() {
           <SubmitButton loading={loading} onPress={handleSubmit}>
             Atualizar perfil
           </SubmitButton>
-          <LogoutButton onPress={handleLogout}>Sair</LogoutButton>
+          <LogoutButton onPress={handleLogout}>Sair do App</LogoutButton>
         </Form>
       </Container>
     </Background>
@@ -152,6 +161,6 @@ export default function Profile() {
 Profile.navigationOptions = {
   tabBarLabel: 'Meu Perfil',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="person" size={20} color={tintColor} />
+    <Icon name="person" size={22} color={tintColor} />
   ),
 };
