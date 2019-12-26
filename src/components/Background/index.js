@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
-import LinearGradient from 'react-native-linear-gradient';
 
-export default styled(LinearGradient).attrs({
-  colors: ['#333', '#ccc'],
-})`
+export default styled.View`
   flex: 1;
+  background: #f5f7fb;
 `;

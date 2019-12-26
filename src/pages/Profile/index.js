@@ -13,7 +13,6 @@ import Background from '~/components/Background';
 import Avatar from './Avatar';
 import {
   Container,
-  Title,
   Form,
   Input,
   Separator,
@@ -84,8 +83,6 @@ export default function Profile() {
   return (
     <Background>
       <Container>
-        <Title>Meu perfil</Title>
-
         <Form>
           <Avatar avatar={profile.avatar} onChange={handleAvatar} />
 

@@ -7,9 +7,9 @@ export const Container = styled.View`
 `;
 
 export const ChangeButton = styled.TouchableOpacity`
-  height: 140px;
-  width: 140px;
-  border: 1px solid #ccc;
+  height: 143px;
+  width: 143px;
+  border: 2px solid #ccc;
   border-radius: 70px;
   align-items: center;
   justify-content: center;

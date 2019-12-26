@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import PickerI from '~/components/Picker';
+import MyPicker from '~/components/Picker';
+import MyCard from '~/components/Card';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -12,28 +13,20 @@ export const Scroll = styled.ScrollView.attrs({
   flex: 1;
 `;
 
-export const Title = styled.Text`
-  font-size: 20px;
-  color: #fff;
-  font-weight: bold;
-  align-self: center;
-`;
-
 export const PickerLabel = styled.Text`
-  font-size: 13px;
-  color: #ccc;
-  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 2px 2px;
 `;
 
-export const Picker = styled(PickerI)`
+export const Picker = styled(MyPicker)`
   margin-bottom: 8px;
 `;
 
-export const Card = styled.View`
-  background-color: #fff;
-  border-radius: 5px;
+export const Card = styled(MyCard)`
   padding: 7px 13px;
-  height: 130px;
+  height: 132px;
   margin: 10px 0;
 `;
 
@@ -61,7 +54,7 @@ export const Value = styled.Text`
 `;
 
 export const Separator = styled.View`
-  background: #ccc;
+  background: #eee;
   height: 1px;
   align-self: stretch;
   margin-top: 6px;
@@ -69,7 +62,7 @@ export const Separator = styled.View`
 
 export const Description = styled.Text`
   text-align: left;
-  padding: 2px 0 1px 20px;
+  padding: 2px 0 1px 7px;
   font-size: 15px;
   color: rgb(169, 169, 169);
 `;

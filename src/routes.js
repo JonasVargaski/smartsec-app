@@ -37,7 +37,7 @@ export default (signedIn = false) =>
                 {
                   defaultNavigationOptions: {
                     headerTransparent: true,
-                    headerTintColor: '#fff',
+                    headerTintColor: '#000',
                     headerLeftContainerStyle: {
                       marginLeft: 20,
                     },
@@ -45,11 +45,9 @@ export default (signedIn = false) =>
                 }
               ),
               navigationOptions: {
-                // tabBarVisible: false, // esconde barra de navegação quando acessar esta rota
+                tabBarVisible: false,
                 tabBarLabel: 'Controladores',
-                tabBarIcon: (
-                  <Icon name="memory" size={22} color="rgba(255,255,255,0.4)" />
-                ),
+                tabBarIcon: <Icon name="memory" size={22} color="#bbb" />,
               },
             },
           },
@@ -57,10 +55,15 @@ export default (signedIn = false) =>
             resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true, // teclado sobrepoe tabBar
-              activeTintColor: '#fff',
-              inactiveTintColor: 'rgba(255,255,255,0.4)',
+              activeTintColor: '#7560ec',
+              inactiveTintColor: '#bbb',
+              labelStyle: {
+                fontWeight: 'bold',
+                marginTop: -5,
+                marginBottom: 4,
+              },
               style: {
-                backgroundColor: '#666',
+                backgroundColor: '#fafafa',
               },
             },
           }

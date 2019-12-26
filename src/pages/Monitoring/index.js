@@ -7,7 +7,6 @@ import Background from '~/components/Background';
 import {
   Container,
   Scroll,
-  Title,
   PickerLabel,
   Picker,
   Card,
@@ -35,8 +34,6 @@ export default function Monitoring() {
     <Background>
       <Container>
         <Scroll>
-          <Title>Monitoramento</Title>
-
           <PickerLabel>Controlador</PickerLabel>
           <Picker
             selectedValue="estufa01"
@@ -145,6 +142,6 @@ export default function Monitoring() {
 Monitoring.navigationOptions = {
   tabBarLabel: 'Monitoramento',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="event" size={22} color={tintColor} />
+    <Icon name="dashboard" size={22} color={tintColor} />
   ),
 };

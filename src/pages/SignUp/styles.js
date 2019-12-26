@@ -44,7 +44,7 @@ export const SignLink = styled.TouchableOpacity`
 `;
 
 export const SignLinkText = styled.Text`
-  color: #4b4b4b;
+  color: #666;
   font-weight: bold;
   font-size: 16px;
 `;

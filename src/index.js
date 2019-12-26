@@ -13,7 +13,7 @@ export default function Pre() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <StatusBar barStyle="light-content" backgroundColor="#333" />
+        <StatusBar barStyle="dark-content" backgroundColor="rgb(245,247,251)" />
         <App />
       </PersistGate>
     </Provider>

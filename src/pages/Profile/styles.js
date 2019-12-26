@@ -6,19 +6,9 @@ export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
-export const Title = styled.Text`
-  font-size: 20px;
-  color: #fff;
-  font-weight: bold;
-  align-self: center;
-  margin-top: 14px;
-`;
-
-export const Avatar = styled.Image``;
-
 export const Separator = styled.View`
   height: 1px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #e4e4e4;
   margin: 10px 0 22px;
 `;
 
