@@ -38,6 +38,19 @@ export const Info = styled.Text`
   color: #999;
 `;
 
+export const Center = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Message = styled.Text`
+  text-align: center;
+  line-height: 28px;
+  font-size: 20px;
+  color: #999;
+`;
+
 export const AddButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;

@@ -31,6 +31,12 @@ export function signUpSuccess() {
   };
 }
 
+export function signed() {
+  return {
+    type: '@auth/SIGNED',
+  };
+}
+
 export function signOut() {
   return {
     type: '@auth/SIGN_OUT',

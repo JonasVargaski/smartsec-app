@@ -3,10 +3,10 @@ import { ActivityIndicator } from 'react-native';
 
 import { Container } from './styles';
 
-export default function Loading() {
+export default function Loader({ ...rest }) {
   return (
     <Container>
-      <ActivityIndicator color="#9a68ed" />
+      <ActivityIndicator {...rest} color="#7560ec" />
     </Container>
   );
 }

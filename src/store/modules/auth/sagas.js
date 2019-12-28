@@ -2,7 +2,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 import Toast from 'react-native-root-toast';
 
-import { signInSuccess, signFailure, signUpSuccess } from './actions';
+import { signInSuccess, signFailure, signUpSuccess, signed } from './actions';
 import api from '~/services/api';
 import NavigationService from '~/services/navigation';
 
@@ -20,6 +20,7 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
+    yield put(signed());
   } catch (err) {
     if (err.data.code === 'AUTH001') {
       Alert.alert(
@@ -60,14 +61,17 @@ export function* signUp({ payload }) {
   }
 }
 
-export function setToken({ payload }) {
+export function* restore({ payload }) {
   if (payload?.auth?.token) {
     api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
+  }
+  if (payload?.auth?.signed) {
+    yield put(signed());
   }
 }
 
 export default all([
-  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('persist/REHYDRATE', restore),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
 ]);

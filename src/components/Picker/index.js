@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-export default function StyledPicker({ style, items, ...rest }) {
+export default function StyledPicker({
+  style,
+  items,
+  itemText,
+  itemValue,
+  ...rest
+}) {
   return (
     <Container style={style}>
       <Picker {...rest}>
         {items.map(item => (
           <Picker.Item
-            key={String(item.value)}
-            label={item.label}
-            value={item.value}
+            key={String(item[itemValue])}
+            label={item[itemText]}
+            value={item[itemValue]}
           />
         ))}
       </Picker>
@@ -22,13 +28,9 @@ export default function StyledPicker({ style, items, ...rest }) {
 
 StyledPicker.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
-    })
-  ).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  itemText: PropTypes.string.isRequired,
+  itemValue: PropTypes.string.isRequired,
 };
 
 StyledPicker.defaultProps = {

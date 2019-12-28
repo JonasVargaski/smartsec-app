@@ -9,9 +9,7 @@ export const Container = styled.SafeAreaView`
 export const Scroll = styled.ScrollView.attrs({
   showVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 15 },
-})`
-  flex: 1;
-`;
+})``;
 
 export const PickerLabel = styled.Text`
   font-size: 14px;
@@ -22,6 +20,14 @@ export const PickerLabel = styled.Text`
 
 export const Picker = styled(MyPicker)`
   margin-bottom: 8px;
+`;
+
+export const Message = styled.Text`
+  text-align: center;
+  line-height: 28px;
+  margin-top: 140px;
+  font-size: 20px;
+  color: #999;
 `;
 
 export const Card = styled(MyCard)`
