@@ -7,8 +7,8 @@ export const Container = styled(RectButton)`
   align-items: center;
   justify-content: center;
 
-  background: ${props => props.disabled ? '#c7c5c5':'#7560ec'};
-  opacity: ${props => props.disabled ? 0.5 : 1};
+  background: ${props => (props.disabled ? '#c7c5c5' : '#7560ec')};
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
 `;
 
 export const Text = styled.Text`

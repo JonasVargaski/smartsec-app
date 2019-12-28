@@ -7,6 +7,7 @@ import { Container } from './styles';
 
 export default function Edit({ navigation }) {
   const device = navigation.getParam('device');
+  console.tron.log(device);
 
   return (
     <Background>
