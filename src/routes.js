@@ -45,7 +45,7 @@ export default (signedIn = false) =>
                 }
               ),
               navigationOptions: {
-                tabBarVisible: false,
+                // tabBarVisible: false,
                 tabBarLabel: 'Controladores',
                 tabBarIcon: <Icon name="memory" size={22} color="#bbb" />,
               },
