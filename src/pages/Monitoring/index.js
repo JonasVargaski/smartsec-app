@@ -45,7 +45,7 @@ export default function Monitoring() {
             itemValue="serial"
           />
 
-          {!data.temp ? (
+          {selectedDevice ? (
             <Message>
               Por favor selecione um controlador para monitorá-lo...
             </Message>

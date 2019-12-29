@@ -14,7 +14,7 @@ function* handleDeviceSelected({ payload }) {
 
 function* subscribe(socket) {
   const channel = eventChannel(emitter => {
-    socket.on('monitoring:deviceData', data => {
+    socket.on('monitoring:device.data', data => {
       emitter(setDeviceData(data));
     });
 
@@ -23,7 +23,7 @@ function* subscribe(socket) {
     });
 
     return () => {
-      socket.off('monitoring:deviceData');
+      socket.off('monitoring:device.data');
       socket.off('monitoring:changeDevice');
     };
   });

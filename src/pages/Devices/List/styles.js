@@ -61,4 +61,5 @@ export const AddButton = styled.TouchableOpacity`
   position: absolute;
   bottom: 10px;
   right: 17px;
+  elevation: 5;
 `;

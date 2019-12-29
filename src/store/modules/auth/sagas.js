@@ -9,17 +9,17 @@ import NavigationService from '~/services/navigation';
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
-
     const response = yield call(api.post, 'sessions', {
       email,
       password,
     });
 
-    const { token, user } = response.data;
+    const { session, token, user } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers.Session = session;
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(session, token, user));
     yield put(signed());
   } catch (err) {
     if (err.data.code === 'AUTH001') {
@@ -64,6 +64,9 @@ export function* signUp({ payload }) {
 export function* restore({ payload }) {
   if (payload?.auth?.token) {
     api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
+  }
+  if (payload?.auth?.session) {
+    api.defaults.headers.Session = payload.auth.session;
   }
   if (payload?.auth?.signed) {
     yield put(signed());
