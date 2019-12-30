@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDevicesRequest } from '~/store/modules/device/actions';
@@ -65,9 +64,3 @@ export default function List({ navigation }) {
     </Background>
   );
 }
-
-List.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-  }).isRequired,
-};

@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
 
 import { Container, TInput } from './styles';
 
+// eslint-disable-next-line react/prop-types
 function Input({ style, icon, disabled, ...rest }, ref) {
   return (
     <Container disabled={disabled} style={style}>
@@ -12,17 +12,4 @@ function Input({ style, icon, disabled, ...rest }, ref) {
     </Container>
   );
 }
-
-Input.propTypes = {
-  icon: PropTypes.string,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  disabled: PropTypes.bool,
-};
-
-Input.defaultProps = {
-  icon: null,
-  style: {},
-  disabled: false,
-};
-
 export default forwardRef(Input);

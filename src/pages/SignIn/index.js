@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Keyboard } from 'react-native';
 import isValid, { Yup } from '~/util/validate';
 
@@ -89,8 +88,3 @@ export default function SignIn({ navigation }) {
     </Background>
   );
 }
-
-SignIn.propTypes = {
-  navigation: PropTypes.shape.isRequired,
-  navigate: PropTypes.func.isRequired,
-};

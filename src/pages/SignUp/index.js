@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { signUpRequest } from '~/store/modules/auth/actions';
 import isValid, { Yup } from '~/util/validate';
@@ -62,7 +61,7 @@ export default function SignUp({ navigation }) {
 
           <Input
             icon="mail-outline"
-            keyboardType="email-adress"
+            keyboardType="email-address"
             placeholder="Digite seu E-mail"
             autoCorrect={false}
             autoCapitalize="none"
@@ -102,8 +101,3 @@ export default function SignUp({ navigation }) {
     </Background>
   );
 }
-
-SignUp.propTypes = {
-  navigation: PropTypes.shape.isRequired,
-  navigate: PropTypes.func.isRequired,
-};

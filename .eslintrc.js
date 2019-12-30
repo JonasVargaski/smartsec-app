@@ -32,6 +32,7 @@ module.exports = {
       'import/no-cycle': 'off',
       'react/state-in-constructor': 'off',
       'react/static-property-placement': 'off',
+      "react/prop-types": ["error", { "ignore": ["navigation", "tintColor"] }],
     },
     settings: {
       'import/resolver': {
