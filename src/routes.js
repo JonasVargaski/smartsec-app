@@ -35,6 +35,7 @@ export default (signedIn = false) =>
                   EditDevices,
                 },
                 {
+                  headerLayoutPreset: 'center',
                   defaultNavigationOptions: {
                     headerTransparent: true,
                     headerTintColor: '#000',

@@ -6,6 +6,7 @@ import api from '~/services/api';
 import {
   addDeviceSuccess,
   getDevicesSuccess,
+  getDevicesFailure,
   updateDeviceSuccess,
   removeDeviceSuccess,
 } from './actions';
@@ -59,6 +60,8 @@ export function* getDevices() {
 
     yield put(getDevicesSuccess(devices));
   } catch (err) {
+    yield put(getDevicesFailure());
+
     Toast.show(`Erro ao buscar controladores.`, {
       position: Toast.positions.TOP,
     });

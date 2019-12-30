@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDevicesRequest } from '~/store/modules/device/actions';
 
 import Background from '~/components/Background';
 import {
@@ -17,10 +18,16 @@ import {
 } from './styles';
 
 export default function List({ navigation }) {
+  const dispatch = useDispatch();
   const devices = useSelector(state => state.device.devices);
+  const loading = useSelector(state => state.device.loading);
 
   function handleDevice(device = {}) {
     navigation.navigate('EditDevices', { device });
+  }
+
+  function refreshList() {
+    dispatch(getDevicesRequest());
   }
 
   return (
@@ -30,6 +37,8 @@ export default function List({ navigation }) {
           <ListDevices
             data={devices}
             keyExtractor={item => String(item.id)}
+            onRefresh={refreshList}
+            refreshing={loading}
             renderItem={({ item }) => (
               <Device
                 onPress={() => {

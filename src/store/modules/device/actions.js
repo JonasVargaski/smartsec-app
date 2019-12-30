@@ -12,6 +12,12 @@ export function getDevicesSuccess(devices) {
   };
 }
 
+export function getDevicesFailure() {
+  return {
+    type: '@device/GET_DEVICES_FAILURE',
+  };
+}
+
 export function addDeviceRequest(data) {
   return {
     type: '@device/ADD_DEVICE_REQUEST',

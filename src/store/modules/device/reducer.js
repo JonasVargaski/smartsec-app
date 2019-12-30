@@ -1,6 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
+  loading: false,
   devices: [],
 };
 
@@ -9,6 +10,11 @@ export default function device(state = INITIAL_STATE, action) {
     switch (action.type) {
       case '@device/GET_DEVICES_SUCCESS': {
         draft.devices = action.payload.devices;
+        draft.loading = false;
+        break;
+      }
+      case '@device/GET_DEVICES_FAILURE': {
+        draft.loading = false;
         break;
       }
       case '@device/ADD_DEVICE_SUCCESS': {
@@ -31,6 +37,7 @@ export default function device(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.devices = [];
+        draft.loading = false;
         break;
       }
       default:
