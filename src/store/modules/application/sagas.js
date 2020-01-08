@@ -3,7 +3,7 @@ import { all, take, put, spawn } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import { changeAppState } from './actions';
 
-export function* monitorAppState() {
+function* monitorAppState() {
   const channel = eventChannel(emitter => {
     AppState.addEventListener('change', emitter);
     return () => AppState.removeEventListener('change', emitter);

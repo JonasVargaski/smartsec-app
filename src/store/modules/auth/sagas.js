@@ -15,7 +15,7 @@ import api from '~/services/api';
 import { connect, disconnect } from '~/services/socket';
 import NavigationService from '~/services/navigation';
 
-export function* signIn({ payload }) {
+function* signIn({ payload }) {
   try {
     const { email, password } = payload;
     const response = yield call(api.post, 'sessions', {
@@ -44,7 +44,7 @@ export function* signIn({ payload }) {
     yield put(signFailure());
   }
 }
-export function* signUp({ payload }) {
+function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
 
@@ -70,7 +70,7 @@ export function* signUp({ payload }) {
   }
 }
 
-export function* restore({ payload }) {
+function* restore({ payload }) {
   if (payload?.auth?.token) {
     api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
   }
@@ -82,7 +82,7 @@ export function* restore({ payload }) {
   }
 }
 
-export function* subscribe(socket) {
+function* subscribe(socket) {
   const channel = eventChannel(emitter => {
     socket.on('auth:signout', () => {
       emitter(signOut());
@@ -104,12 +104,12 @@ export function* subscribe(socket) {
   }
 }
 
-export function* listen() {
+function* listen() {
   const socket = yield call(connect);
   yield fork(subscribe, socket);
 }
 
-export function unsubscribe() {
+function unsubscribe() {
   disconnect();
 }
 

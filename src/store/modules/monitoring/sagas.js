@@ -5,7 +5,7 @@ import { store } from '~/store';
 
 import { setSelectedDeviceSuccess, setDeviceData } from './actions';
 
-export function* handleDeviceSelected({ payload }) {
+function* handleDeviceSelected({ payload }) {
   const { serial } = payload;
   if (typeof serial === 'string' && serial.length) {
     const socket = yield call(connect);
@@ -13,7 +13,7 @@ export function* handleDeviceSelected({ payload }) {
   }
 }
 
-export function* refreshDeviceData({ payload }) {
+function* refreshDeviceData({ payload }) {
   const { status } = payload;
   if (status === 'active') {
     const { device } = store.getState().monitoring;
@@ -21,7 +21,7 @@ export function* refreshDeviceData({ payload }) {
   }
 }
 
-export function* subscribe(socket) {
+function* subscribe(socket) {
   const channel = eventChannel(emitter => {
     socket.on('monitoring:data', data => {
       emitter(setDeviceData(data));
@@ -47,7 +47,7 @@ export function* subscribe(socket) {
   }
 }
 
-export function* listen() {
+function* listen() {
   const socket = yield call(connect);
   yield fork(subscribe, socket);
 }

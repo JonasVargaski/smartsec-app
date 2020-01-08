@@ -10,7 +10,7 @@ import {
   updateAvatarSuccess,
 } from './actions';
 
-export function* updateProfile({ payload }) {
+function* updateProfile({ payload }) {
   try {
     const { name, email, avatar_id, ...rest } = payload;
 
@@ -32,7 +32,7 @@ export function* updateProfile({ payload }) {
   }
 }
 
-export function* updateAvatar({ payload }) {
+function* updateAvatar({ payload }) {
   try {
     const { name, uri } = payload;
     // eslint-disable-next-line no-undef

@@ -11,7 +11,7 @@ import {
   removeDeviceSuccess,
 } from './actions';
 
-export function* removeDevice({ payload }) {
+function* removeDevice({ payload }) {
   try {
     const { id } = payload;
     yield call(api.put, `devices/associate/${id}`, {
@@ -26,7 +26,7 @@ export function* removeDevice({ payload }) {
   }
 }
 
-export function* updateDevice({ id, description }) {
+function* updateDevice({ id, description }) {
   try {
     const { data } = yield call(api.put, `devices/associate/${id}`, {
       description,
@@ -47,7 +47,7 @@ export function* updateDevice({ id, description }) {
   }
 }
 
-export function* getDevices() {
+function* getDevices() {
   try {
     const response = yield call(api.get, 'devices/associate');
 
@@ -68,7 +68,7 @@ export function* getDevices() {
   }
 }
 
-export function* addDevice({ payload }) {
+function* addDevice({ payload }) {
   try {
     const { data } = payload;
 
