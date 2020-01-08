@@ -28,6 +28,9 @@ function* updateProfile({ payload }) {
       position: Toast.positions.TOP,
     });
   } catch (err) {
+    Toast.show('Erro ao atualizar perfil, Confira seus dados.', {
+      position: Toast.positions.TOP,
+    });
     yield put(updateProfileFailure());
   }
 }
