@@ -1,8 +1,9 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
+  loading: false,
   device: null,
-  deviceData: {},
+  data: {},
 };
 
 export default function device(state = INITIAL_STATE, action) {
@@ -10,21 +11,21 @@ export default function device(state = INITIAL_STATE, action) {
     switch (action.type) {
       case '@monitoring/SET_SELECTED_DEVICE_SUCCESS': {
         draft.device = action.payload.serial;
+        draft.loading = false;
+        break;
+      }
+      case '@monitoring/SET_SELECTED_DEVICE_REQUEST': {
+        draft.data = {};
+        draft.loading = true;
         break;
       }
       case '@monitoring/SET_DEVICE_DATA': {
-        draft.deviceData = action.payload.data;
-        break;
-      }
-      case '@device/GET_DEVICES_SUCCESS': {
-        if (!draft.device) {
-          draft.device = action.payload.devices[0]?.serial;
-        }
+        draft.loading = false;
+        draft.data = action.payload.data;
         break;
       }
       case '@auth/SIGN_OUT': {
-        draft.device = null;
-        draft.deviceData = {};
+        draft = INITIAL_STATE;
         break;
       }
       default:

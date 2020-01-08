@@ -8,6 +8,10 @@ const INITIAL_STATE = {
 export default function device(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
+      case '@device/GET_DEVICES_REQUEST': {
+        draft.loading = true;
+        break;
+      }
       case '@device/GET_DEVICES_SUCCESS': {
         draft.devices = action.payload.devices;
         draft.loading = false;

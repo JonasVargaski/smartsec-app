@@ -4,7 +4,8 @@ import auth from './auth/sagas';
 import user from './user/sagas';
 import device from './device/sagas';
 import monitoring from './monitoring/sagas';
+import application from './application/sagas';
 
 export default function* rootSaga() {
-  return yield all([auth, user, device, monitoring]);
+  return yield all([auth, user, device, monitoring, application]);
 }

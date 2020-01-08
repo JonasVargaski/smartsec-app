@@ -6,7 +6,7 @@ export default reducers => {
     {
       key: 'smartsec',
       storage: AsyncStorage,
-      whitelist: ['auth', 'user'],
+      whitelist: ['auth', 'user', 'monitoring', 'device'],
     },
     reducers
   );

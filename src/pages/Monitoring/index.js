@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import IconFa from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { addSeconds, isPast, formatDistance } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
 
 import { setSelectedDeviceRequest } from '~/store/modules/monitoring/actions';
 import Background from '~/components/Background';
 
 import {
   Container,
+  Loader,
   Scroll,
   Message,
   PickerLabel,
@@ -19,38 +22,65 @@ import {
   Value,
   Separator,
   Description,
+  Time,
 } from './styles';
 
 export default function Monitoring() {
   const dispatch = useDispatch();
   const devices = useSelector(state => state.device.devices);
-  const selectedDevice = useSelector(state => state.monitoring.device?.serial);
-  const data = useSelector(state => state.monitoring.deviceData);
+  const { device, loading, data } = useSelector(state => state.monitoring);
+  const appState = useSelector(state => state.application.appState);
+
+  const dateFormatted = useMemo(() => {
+    if (data.date) {
+      return formatDistance(data.date, new Date(), {
+        addSuffix: true,
+        locale: pt,
+      });
+    }
+    return '';
+  }, [data.date, appState]);
 
   function handleDevice(serial) {
     dispatch(setSelectedDeviceRequest(serial));
   }
 
+  function isConnected(date) {
+    return !isPast(addSeconds(date, 60));
+  }
+
   return (
     <Background>
       <Container>
+        {loading && <Loader />}
+
         <Scroll>
           <PickerLabel>Controlador</PickerLabel>
           <Picker
             items={devices}
-            selectedValue={selectedDevice}
+            selectedValue={device}
             onValueChange={handleDevice}
             mode="dropdown"
             itemText="description"
             itemValue="serial"
           />
 
-          {selectedDevice ? (
+          {!device ? (
             <Message>
               Por favor selecione um controlador para monitorá-lo...
             </Message>
           ) : (
             <>
+              {data.date && (
+                <Description>
+                  Ultima Conexão:
+                  <Time connected={isConnected(data.date)}>
+                    {' '}
+                    {dateFormatted}
+                  </Time>
+                </Description>
+              )}
+
               <Card>
                 <Row>
                   <IconFa name="thermometer-half" size={68} color="#E53935" />

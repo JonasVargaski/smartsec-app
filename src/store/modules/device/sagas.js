@@ -98,5 +98,5 @@ export default all([
   takeLatest('@device/REMOVE_DEVICE_REQUEST', removeDevice),
   takeLatest('@device/ADD_DEVICE_REQUEST', addDevice),
   takeLatest('@device/UPDATE_DEVICE_REQUEST', updateDevice),
-  takeLatest('@auth/SIGNED', getDevices),
+  takeLatest(['@auth/SIGNED', '@device/GET_DEVICES_REQUEST'], getDevices),
 ]);

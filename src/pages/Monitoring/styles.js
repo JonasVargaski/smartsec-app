@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import MyPicker from '~/components/Picker';
 import MyCard from '~/components/Card';
+import MyLoader from '~/components/Loader';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -10,6 +11,12 @@ export const Scroll = styled.ScrollView.attrs({
   showVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 15 },
 })``;
+
+export const Loader = styled(MyLoader).attrs({
+  size: 'large',
+})`
+  background: rgba(255, 255, 255, 0.5);
+`;
 
 export const PickerLabel = styled.Text`
   font-size: 14px;
@@ -28,6 +35,10 @@ export const Message = styled.Text`
   margin-top: 140px;
   font-size: 20px;
   color: #999;
+`;
+
+export const Section = styled.View`
+  position: relative;
 `;
 
 export const Card = styled(MyCard)`
@@ -71,4 +82,12 @@ export const Description = styled.Text`
   padding: 2px 0 1px 7px;
   font-size: 15px;
   color: rgb(169, 169, 169);
+`;
+
+export const Time = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${({ connected }) => (connected ? '#28B133' : '#DC3636')};
 `;

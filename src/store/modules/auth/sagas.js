@@ -1,9 +1,18 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put, all, take, fork } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import { Alert } from 'react-native';
 import Toast from 'react-native-root-toast';
 
-import { signInSuccess, signFailure, signUpSuccess, signed } from './actions';
+import {
+  signInSuccess,
+  signFailure,
+  signUpSuccess,
+  signed,
+  signOut,
+} from './actions';
+
 import api from '~/services/api';
+import { connect, disconnect } from '~/services/socket';
 import NavigationService from '~/services/navigation';
 
 export function* signIn({ payload }) {
@@ -73,8 +82,41 @@ export function* restore({ payload }) {
   }
 }
 
+export function* subscribe(socket) {
+  const channel = eventChannel(emitter => {
+    socket.on('auth:signout', () => {
+      emitter(signOut());
+      disconnect();
+    });
+
+    return () => {
+      socket.off('auth:signout');
+    };
+  });
+
+  try {
+    while (true) {
+      const action = yield take(channel);
+      yield put(action);
+    }
+  } finally {
+    channel.close();
+  }
+}
+
+export function* listen() {
+  const socket = yield call(connect);
+  yield fork(subscribe, socket);
+}
+
+export function unsubscribe() {
+  disconnect();
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', restore),
+  takeLatest('@auth/SIGN_OUT', unsubscribe),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/SIGNED', listen),
 ]);
