@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   background: #7560ec;
-  height: 160px;
+  height: 142px;
   align-self: stretch;
 `;
 
@@ -24,8 +24,8 @@ export const ActionButton = styled.TouchableOpacity`
   padding: 4px 7px;
 `;
 
-export const Title = styled.Text`
-  margin: 30px 0 0 60px;
+export const Description = styled.Text`
+  margin: 22px 0 0 60px;
   font-weight: bold;
   font-size: 22px;
   color: #fff;
@@ -36,4 +36,22 @@ export const Serial = styled.Text`
   margin-left: 60px;
   font-size: 18px;
   color: #e5e5e5;
+`;
+
+export const Firmware = styled.Text`
+  text-align: right;
+  font-size: 14px;
+  color: #fff;
+  margin-right: 12px;
+`;
+
+export const Title = styled.Text`
+  font-weight: bold;
+  font-size: 20px;
+  margin: 8px auto 0;
+  color: #444;
+`;
+
+export const Content = styled.ScrollView`
+  margin: 7px 5px 0 12px;
 `;
