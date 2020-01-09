@@ -1,20 +1,18 @@
 import React, { useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import IconFa from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { addSeconds, isPast, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 
-import { setSelectedDeviceRequest } from '~/store/modules/monitoring/actions';
 import Background from '~/components/Background';
+import DevicePicker from '~/components/DevicePicker';
 
 import {
   Container,
   Loader,
   Scroll,
   Message,
-  PickerLabel,
-  Picker,
   Card,
   Row,
   Col,
@@ -26,8 +24,6 @@ import {
 } from './styles';
 
 export default function Monitoring() {
-  const dispatch = useDispatch();
-  const devices = useSelector(state => state.device.devices);
   const { device, loading, data } = useSelector(state => state.monitoring);
   const appState = useSelector(state => state.application.appState);
 
@@ -41,10 +37,6 @@ export default function Monitoring() {
     return '';
   }, [data.date, appState]);
 
-  function handleDevice(serial) {
-    dispatch(setSelectedDeviceRequest(serial));
-  }
-
   function isConnected(date) {
     return !isPast(addSeconds(date, 60));
   }
@@ -55,16 +47,7 @@ export default function Monitoring() {
         {loading && <Loader />}
 
         <Scroll>
-          <PickerLabel>Controlador</PickerLabel>
-          <Picker
-            items={devices}
-            selectedValue={device}
-            onValueChange={handleDevice}
-            mode="dropdown"
-            itemText="description"
-            itemValue="serial"
-          />
-
+          <DevicePicker />
           {!device ? (
             <Message>
               Por favor selecione um controlador para monitorá-lo...

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import MyPicker from '~/components/Picker';
+
 import MyCard from '~/components/Card';
 import MyLoader from '~/components/Loader';
 
@@ -16,17 +16,6 @@ export const Loader = styled(MyLoader).attrs({
   size: 'large',
 })`
   background: rgba(255, 255, 255, 0.5);
-`;
-
-export const PickerLabel = styled.Text`
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin: 0 0 2px 2px;
-`;
-
-export const Picker = styled(MyPicker)`
-  margin-bottom: 8px;
 `;
 
 export const Message = styled.Text`

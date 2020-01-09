@@ -5,7 +5,7 @@ import { store } from '~/store';
 
 import { setSelectedDeviceSuccess, setDeviceData } from './actions';
 
-function* handleDeviceSelected({ payload }) {
+function* changeDeviceSelected({ payload }) {
   const { serial } = payload;
   if (typeof serial === 'string' && serial.length) {
     const socket = yield call(connect);
@@ -17,7 +17,7 @@ function* refreshDeviceData({ payload }) {
   const { status } = payload;
   if (status === 'active') {
     const { device } = store.getState().monitoring;
-    yield call(handleDeviceSelected, { payload: { serial: device } });
+    yield call(changeDeviceSelected, { payload: { serial: device } });
   }
 }
 
@@ -53,7 +53,7 @@ function* listen() {
 }
 
 export default all([
-  takeLatest('@monitoring/SET_SELECTED_DEVICE_REQUEST', handleDeviceSelected),
+  takeLatest('@monitoring/SET_SELECTED_DEVICE_REQUEST', changeDeviceSelected),
   takeLatest('@auth/SIGNED', listen),
   takeLatest('@application/CHANGE_APP_STATE', refreshDeviceData),
 ]);

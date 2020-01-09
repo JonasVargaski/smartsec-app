@@ -24,6 +24,10 @@ export default function device(state = INITIAL_STATE, action) {
         draft.data = action.payload.data;
         break;
       }
+      case '@auth/SIGNED': {
+        draft.loading = false;
+        break;
+      }
       case '@auth/SIGN_OUT': {
         draft = INITIAL_STATE;
         break;
