@@ -34,7 +34,7 @@ export default function device(state = INITIAL_STATE, action) {
         }
         break;
       }
-      case '@device/REMOVE_DEVICE_SUCCESS': {
+      case '@device/REMOVE_DEVICE': {
         const { id } = action.payload;
         draft.devices = draft.devices.filter(d => d.id !== id);
         break;

@@ -10,32 +10,45 @@ export const ListDevices = styled.FlatList.attrs({
 })``;
 
 export const Device = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  height: 90px;
+  margin: 8px 4px;
   background: #fff;
   border-radius: 4px;
-  border: 1px solid rgba(0, 40, 100, 0.12);
-  height: 75px;
-  padding: 5px 5px 5px 8px;
-  align-self: stretch;
-  margin: 8px 4px;
-  justify-content: space-around;
+  elevation: 5;
 `;
 
-export const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+export const Avatar = styled.View`
+  height: 48px;
+  width: 48px;
+  border-radius: 24px;
+  background: #7560ec;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
 `;
+
+export const Column = styled.View``;
 
 export const Name = styled.Text.attrs({
   numberOfLines: 1,
 })`
-  font-size: 16px;
+  font-weight: bold;
+  font-size: 18px;
   color: #333;
 `;
 
-export const Info = styled.Text`
-  font-size: 14px;
+export const Serial = styled.Text`
+  font-size: 16px;
   color: #999;
+`;
+
+export const Date = styled.Text`
+  font-weight: bold;
+  font-size: 16px;
+  color: #888;
+  line-height: 18px;
 `;
 
 export const Center = styled.View`

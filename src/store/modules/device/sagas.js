@@ -8,23 +8,7 @@ import {
   getDevicesSuccess,
   getDevicesFailure,
   updateDeviceSuccess,
-  removeDeviceSuccess,
 } from './actions';
-
-function* removeDevice({ payload }) {
-  try {
-    const { id } = payload;
-    yield call(api.put, `devices/associate/${id}`, {
-      situation: 'inactive',
-    });
-
-    yield put(removeDeviceSuccess(id));
-  } catch (err) {
-    Toast.show('Erro ao remover controlador, tente novamente.', {
-      position: Toast.positions.TOP,
-    });
-  }
-}
 
 function* updateDevice({ id, description }) {
   try {
@@ -55,7 +39,7 @@ function* getDevices() {
       id: device.id,
       description: device.description,
       serial: device.device.serial,
-      date: format(parseISO(device.updatedAt), 'dd/MM/yyyy'),
+      date: format(parseISO(device.updatedAt), "HH:mm '|' dd/MM/yyyy"),
     }));
 
     yield put(getDevicesSuccess(devices));
@@ -80,7 +64,7 @@ function* addDevice({ payload }) {
       id: device.id,
       serial: device.serial,
       description,
-      date: format(parseISO(updatedAt), 'dd/MM/yyyy'),
+      date: format(parseISO(updatedAt), "HH:mm '|' dd/MM/yyyy"),
     };
 
     yield put(addDeviceSuccess(deviceStore));
@@ -95,7 +79,6 @@ function* addDevice({ payload }) {
 }
 
 export default all([
-  takeLatest('@device/REMOVE_DEVICE_REQUEST', removeDevice),
   takeLatest('@device/ADD_DEVICE_REQUEST', addDevice),
   takeLatest('@device/UPDATE_DEVICE_REQUEST', updateDevice),
   takeLatest(['@auth/SIGNED', '@device/GET_DEVICES_REQUEST'], getDevices),

@@ -46,16 +46,9 @@ export function updateDeviceSuccess(device) {
   };
 }
 
-export function removeDeviceRequest(id) {
+export function removeDevice(id) {
   return {
-    type: '@device/REMOVE_DEVICE_REQUEST',
-    payload: { id },
-  };
-}
-
-export function removeDeviceSuccess(id) {
-  return {
-    type: '@device/REMOVE_DEVICE_SUCCESS',
+    type: '@device/REMOVE_DEVICE',
     payload: { id },
   };
 }

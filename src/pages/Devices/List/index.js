@@ -4,13 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDevicesRequest } from '~/store/modules/device/actions';
 
 import Background from '~/components/Background';
+
 import {
   Container,
   ListDevices,
   Device,
-  Row,
+  Column,
+  Avatar,
   Name,
-  Info,
+  Serial,
+  Date,
   Center,
   Message,
   AddButton,
@@ -28,7 +31,6 @@ export default function List({ navigation }) {
   function refreshList() {
     dispatch(getDevicesRequest());
   }
-
   return (
     <Background>
       <Container>
@@ -44,11 +46,15 @@ export default function List({ navigation }) {
                   handleDevice(item);
                 }}
               >
-                <Name>{item.description}</Name>
-                <Row>
-                  <Info>ns: {item.serial}</Info>
-                  <Info>{item.date}</Info>
-                </Row>
+                <Avatar>
+                  <Icon name="important-devices" size={28} color="#fff" />
+                </Avatar>
+
+                <Column>
+                  <Name>{item.description}</Name>
+                  <Serial>{item.serial}</Serial>
+                  <Date>{item.date}</Date>
+                </Column>
               </Device>
             )}
           />
@@ -57,6 +63,7 @@ export default function List({ navigation }) {
             <Message>Adicione novos Controladores para monitorá-los...</Message>
           </Center>
         )}
+
         <AddButton onPress={handleDevice}>
           <Icon name="add" size={35} color="#fff" />
         </AddButton>
