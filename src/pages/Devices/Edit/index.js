@@ -25,7 +25,7 @@ export default function Edit({ navigation }) {
   const { description, id, serial } = navigation.getParam('device');
 
   const dispatch = useDispatch();
-  const [device, setDevice] = useState({});
+  const [device, setDevice] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -84,9 +84,8 @@ export default function Edit({ navigation }) {
         </Header>
 
         <Title>Configuração do dispositivo</Title>
-        {loading ? (
-          <Loader size="large" label="Carregando..." />
-        ) : (
+        {loading && <Loader size="large" label="Carregando..." />}
+        {device && (
           <Content>
             <ConfigItem label="Modo de trabalho" value={device.workMode} />
 
