@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { store } from '~/store';
 import { signOut } from '~/store/modules/auth/actions';
+import { apiUrl } from '~/config/endPoint';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.102:3333',
+  baseURL: apiUrl,
 });
 
 api.interceptors.response.use(

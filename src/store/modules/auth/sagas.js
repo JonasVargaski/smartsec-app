@@ -1,18 +1,12 @@
-import { takeLatest, call, put, all, take, fork } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 import Toast from 'react-native-root-toast';
+import { store } from '~/store';
 
-import {
-  signInSuccess,
-  signFailure,
-  signUpSuccess,
-  signed,
-  signOut,
-} from './actions';
+import { signInSuccess, signFailure, signUpSuccess, signed } from './actions';
 
 import api from '~/services/api';
-import { connect, disconnect } from '~/services/socket';
+import socket from '~/services/socket';
 import NavigationService from '~/services/navigation';
 
 function* signIn({ payload }) {
@@ -82,41 +76,19 @@ function* restore({ payload }) {
   }
 }
 
-function* subscribe(socket) {
-  const channel = eventChannel(emitter => {
-    socket.on('auth:signout', () => {
-      emitter(signOut());
-      disconnect();
-    });
-
-    return () => {
-      socket.off('auth:signout');
-    };
-  });
-
-  try {
-    while (true) {
-      const action = yield take(channel);
-      yield put(action);
-    }
-  } finally {
-    channel.close();
-  }
+function connectWs() {
+  const { auth } = store.getState();
+  if (auth.token) socket.connect({ token: auth.token });
 }
 
-function* listen() {
-  const socket = yield call(connect);
-  yield fork(subscribe, socket);
-}
-
-function unsubscribe() {
-  disconnect();
+function disconnectWs() {
+  socket.disconnect();
 }
 
 export default all([
   takeLatest('persist/REHYDRATE', restore),
-  takeLatest('@auth/SIGN_OUT', unsubscribe),
+  takeLatest('@auth/SIGN_OUT', disconnectWs),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
-  takeLatest('@auth/SIGNED', listen),
+  takeLatest('@auth/SIGNED', connectWs),
 ]);

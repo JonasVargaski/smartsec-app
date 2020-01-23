@@ -1,29 +1,38 @@
-import io from 'socket.io-client';
-import { store } from '~/store';
+import socketio from 'socket.io-client';
+import { apiUrl } from '~/config/endPoint';
 
-let socket = {};
+const socket = socketio(apiUrl, {
+  autoConnect: false,
+});
 
-export function connect() {
-  const { token } = store.getState().auth;
-
-  return new Promise(resolve => {
-    if (socket.connected) {
-      resolve(socket);
-    } else {
-      socket = io('http://192.168.0.102:3333', {
-        autoConnect: false,
-        query: { token },
-      });
-
-      socket.connect();
-
-      socket.on('connect', () => {
-        resolve(socket);
-      });
-    }
-  });
+function subscribe(key, fn) {
+  socket.on(key, fn);
 }
 
-export function disconnect() {
-  return socket.disconnect();
+function unsubscribe(key, fn) {
+  socket.on(key, fn);
 }
+
+function publish(key, data) {
+  socket.emit(key, data);
+}
+
+function connect(opts) {
+  socket.io.opts.query = opts;
+  socket.connect();
+}
+
+function disconnect() {
+  if (socket.connected) {
+    socket.disconnect();
+  }
+}
+
+export default {
+  io: socket,
+  subscribe,
+  unsubscribe,
+  publish,
+  connect,
+  disconnect,
+};

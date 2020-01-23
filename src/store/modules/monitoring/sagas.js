@@ -1,6 +1,6 @@
-import { all, take, takeLatest, call, put, fork } from 'redux-saga/effects';
+import { all, take, takeLatest, call, put } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
-import { connect } from '~/services/socket';
+import socket from '~/services/socket';
 import { store } from '~/store';
 
 import { setSelectedDeviceSuccess, setDeviceData } from './actions';
@@ -8,8 +8,8 @@ import { setSelectedDeviceSuccess, setDeviceData } from './actions';
 function* changeDeviceSelected({ payload }) {
   const { serial } = payload;
   if (typeof serial === 'string' && serial.length) {
-    const socket = yield call(connect);
-    socket.emit('monitoring', { action: 'change:device', serial });
+    socket.publish('monitoring:changedevice', { device: { serial } });
+    yield put(setSelectedDeviceSuccess(serial));
   }
 }
 
@@ -21,19 +21,14 @@ function* refreshDeviceData({ payload }) {
   }
 }
 
-function* subscribe(socket) {
+function* subscribe() {
   const channel = eventChannel(emitter => {
-    socket.on('monitoring:data', data => {
+    socket.subscribe('monitoring:data', data => {
       emitter(setDeviceData(data));
     });
 
-    socket.on('monitoring:changedevice', serial => {
-      emitter(setSelectedDeviceSuccess(serial));
-    });
-
     return () => {
-      socket.off('monitoring:data');
-      socket.off('monitoring:changedevice');
+      socket.unsubscribe('monitoring:data', () => {});
     };
   });
 
@@ -47,13 +42,8 @@ function* subscribe(socket) {
   }
 }
 
-function* listen() {
-  const socket = yield call(connect);
-  yield fork(subscribe, socket);
-}
-
 export default all([
   takeLatest('@monitoring/SET_SELECTED_DEVICE_REQUEST', changeDeviceSelected),
-  takeLatest('@auth/SIGNED', listen),
+  takeLatest('@auth/SIGNED', subscribe),
   takeLatest('@application/CHANGE_APP_STATE', refreshDeviceData),
 ]);
